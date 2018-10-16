@@ -23,7 +23,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                @if(Auth::check())
+                    <a class="navbar-brand" href="{{ url('/player') }}">
+                @else
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                @endif
                     {{ config('app.name') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
