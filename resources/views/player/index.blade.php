@@ -17,13 +17,14 @@
                 @foreach($players as $player)
                     <tr>
                         <td><a href={{ route('player.show',$player->id) }}>{{$player->name}}</a></td>
-                        <td>{{$player->surname}}</td>
+                        <td><a href={{ route('player.show',$player->id) }}>{{$player->surname}}</a></td>
                         <td>{{$player->rank}}</td>
                         <td>{{$player->age}}</td>
                         <td>{{$player->created_at}}</td>
                         <td>
-                            <a href={{ route('player.edit',$player->id) }}><i class="fas fa-edit"></i></a>
-                            <a href={{ route('player.destroy',$player->id) }}><i class="fas fa-trash-alt"></i></a>
+                            <a href="{{ route('player.show', $player->id) }}" class="btn btn-primary"><i class="fas fa-user-astronaut"></i></a>
+                            <a class="btn btn-success" href={{ route('player.edit', $player->id) }}><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger" href={{ route('player.destroy', $player->id) }}><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 @endforeach

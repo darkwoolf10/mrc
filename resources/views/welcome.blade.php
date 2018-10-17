@@ -20,6 +20,12 @@
                 height: 100vh;
                 margin: 0;
             }
+            #welcome-body {
+                background-image: url("/img/bg.jpg");
+            }
+            #welcome {
+                color: #1b1e21;
+            }
 
             .full-height {
                 height: 100vh;
@@ -64,12 +70,12 @@
             }
         </style>
     </head>
-    <body>
+    <body id="welcome-body">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/player') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -78,19 +84,13 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div id="welcome">
+                    <h1>@{{ name }}</h1>
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="/js/app.js"></script>
     </body>
 </html>

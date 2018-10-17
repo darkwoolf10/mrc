@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="mr-sm-2 col-2" for="rank">Player rank</label>
-                <div class="col-9">
+                <label class="col-2 col-form-label" for="rank"><h4>Player rank</h4></label>
+                <div class="col-10 float-right">
                     <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="rank" id="rank">
                         <option value="1">One rank</option>
                         <option value="2">Two rank</option>

@@ -31,8 +31,8 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="mr-sm-2 col-2" for="rank">Player rank</label>
-            <div class="col-9">
+            <label class="col-2 col-form-label" for="rank"><h4>Player rank</h4></label>
+            <div class="col-10 float-right">
                 <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="rank" id="rank">
                     <option value="1">One rank</option>
                     <option value="2">Two rank</option>
@@ -41,11 +41,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="plus">Player pluses</label>
+            <label for="plus"><h4>Player pluses</h4></label>
             <textarea class="form-control" name="plus" id="plus" rows="3"></textarea>
         </div>
         <div class="form-group">
-            <label for="minus">Player pluses</label>
+            <label for="minus"><h4>Player minuses</h4></label>
             <textarea class="form-control" name="minus" id="plus" rows="3"></textarea>
         </div>
         <div class="form-group">
