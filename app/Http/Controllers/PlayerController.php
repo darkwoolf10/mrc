@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Player;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -41,7 +42,11 @@ class PlayerController extends Controller
     public function show($id)
     {
         $player = Player::find($id);
-        return view('player.show', ['player' => $player]);
+        $age = \Carbon::parse($player->birthday)->age;
+        return view('player.show', [
+            'player' => $player,
+            'age' => $age,
+        ]);
     }
 
     public function edit($id)

@@ -7,7 +7,7 @@
         </div>
         <h1>
             {{$player->name . ' ' .$player->surname}}
-            <span style="font-size:16px">{{$player->age}} age.</span>
+            <span style="font-size:16px">{{$age}} age.</span>
         </h1>
         <h4>runk: {{$player->rank}}</h4>
         <hr>

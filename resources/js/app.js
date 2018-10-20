@@ -7,7 +7,15 @@
 
 require('./bootstrap');
 
+/**
+ * Include Jquery
+ */
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
 window.Vue = require('vue');
+
+import Datepicker from 'vuejs-datepicker';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -20,17 +28,19 @@ window.onload = function () {
     const app = new Vue({
         el: '#app',
         data: {
-            format: 'YYYY',
         },
         methods: {
-            formatDate: function (date) {
-                return moment(date).format('YYYY, h:mm:ss a');
+            calculateAge: function(dob) { // birthday is a date
+                var diff_ms = Date.now() - dob.getTime();
+                var age_dt = new Date(diff_ms);
+                return Math.abs(age_dt.getUTCFullYear() - 1970);
             }
         },
         components: {
-            vuejsDatepicker
+            Datepicker
         },
         mounted() {
+            $('#birthday').addClass('form-control');
         },
     });
 }
