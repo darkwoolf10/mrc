@@ -39,14 +39,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    public function login(Request $request)
-    {
-        if ($request->email = 'admin@gmail.com' && $request->password = 'admin') {
-            $user = User::find($request->email); // you must have record in your user table to trigger the login.
-            Auth::login($user);
-            return redirect('player');
-        }
-    }
-
 }
