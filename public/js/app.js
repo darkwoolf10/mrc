@@ -13885,8 +13885,9 @@ module.exports = __webpack_require__(45);
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -13905,10 +13906,23 @@ window.Vue = __webpack_require__(37);
  */
 
 Vue.component('example-component', __webpack_require__(40));
-
-var app = new Vue({
-  el: '#app'
-});
+window.onload = function () {
+    var app = new Vue({
+        el: '#app',
+        data: {
+            format: 'YYYY'
+        },
+        methods: {
+            formatDate: function formatDate(date) {
+                return moment(date).format('YYYY, h:mm:ss a');
+            }
+        },
+        components: {
+            vuejsDatepicker: vuejsDatepicker
+        },
+        mounted: function mounted() {}
+    });
+};
 
 /***/ }),
 /* 13 */

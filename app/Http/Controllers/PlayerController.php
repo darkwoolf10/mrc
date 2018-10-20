@@ -24,13 +24,12 @@ class PlayerController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'rank' => 'required|integer',
-            'age' => 'integer',
         ]);
         $player = new Player();
         $player->name = $request->input('name');
         $player->surname = $request->input('surname');
         $player->rank = $request->input('rank');
-        $player->age = $request->input('age');
+        $player->birthday = date("Y-m-d", strtotime($request->input('birthday')));
         $player->save();
 
         return redirect()->route('player.index')
@@ -55,7 +54,6 @@ class PlayerController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'rank' => 'required|integer',
-            'age' => 'integer',
             'plus' => 'text',
             'minus' => 'text',
         ]);
@@ -63,7 +61,7 @@ class PlayerController extends Controller
         $player->name = $request->get('name');
         $player->surname = $request->get('surname');
         $player->rank = $request->get('rank');
-        $player->age = $request->get('age');
+        $player->birthday = $request->get('birthday');
         $player->plus = $request->get('plus');
         $player->minus = $request->get('minus');
         $player->save();

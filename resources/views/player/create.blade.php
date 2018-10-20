@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" id="app">
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -25,9 +25,9 @@
                 <input type="text" name="surname" class="form-control" id="surname" placeholder="Фамилия игрока">
             </div>
             <div class="form-group row">
-                <label for="age" class="col-2 col-form-label"><h4>Player age</h4></label>
+                <label for="birthday" class="col-2 col-form-label"><h4>Player birthday</h4></label>
                 <div class="col-10">
-                    <input class="form-control" name="age" type="number" value="42" id="age">
+                    <vuejs-datepicker id="birthday" name="birthday" :format="app.formatDate"></vuejs-datepicker>
                 </div>
             </div>
             <div class="form-group row">

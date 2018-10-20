@@ -16,7 +16,21 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-const app = new Vue({
-    el: '#app'
-});
+window.onload = function () {
+    const app = new Vue({
+        el: '#app',
+        data: {
+            format: 'YYYY',
+        },
+        methods: {
+            formatDate: function (date) {
+                return moment(date).format('YYYY, h:mm:ss a');
+            }
+        },
+        components: {
+            vuejsDatepicker
+        },
+        mounted() {
+        },
+    });
+}
