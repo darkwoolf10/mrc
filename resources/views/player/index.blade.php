@@ -26,9 +26,13 @@
                             <td>Birthday not found</td>
                         @endif
                         <td>
-                            <a href="{{ route('player.show', $player->id) }}" class="btn btn-primary"><i class="fas fa-user-astronaut"></i></a>
+                            <a href="{{ route('player.destroy', $player->id) }}" class="btn btn-primary"><i class="fas fa-user-astronaut"></i></a>
                             <a class="btn btn-success" href={{ route('player.edit', $player->id) }}><i class="fas fa-edit"></i></a>
-                            <a class="btn btn-danger" href={{ route('player.destroy', $player->id) }}><i class="fas fa-trash-alt"></i></a>
+                            <form action="{{ route('player.destroy', ['id' => $player->id]) }}" method="post" class="d-inline">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

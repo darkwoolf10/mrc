@@ -17,4 +17,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('player', 'PlayerController')->middleware('auth');;
+Route::resource('player', 'PlayerController')->middleware('auth');

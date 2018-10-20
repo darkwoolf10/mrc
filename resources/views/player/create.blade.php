@@ -27,7 +27,7 @@
             <div class="form-group row">
                 <label for="birthday" class="col-2 col-form-label"><h4>Player birthday</h4></label>
                 <div class="col-10">
-                    <vuejs-datepicker id="birthday" name="birthday" :format="app.formatDate"></vuejs-datepicker>
+                    <vuejs-datepicker class="form-control" style="-webkit-appearance: none;" id="birthday" name="birthday" :format="app.formatDate"></vuejs-datepicker>
                 </div>
             </div>
             <div class="form-group row">

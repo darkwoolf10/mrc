@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Player;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PlayerController extends Controller
 {
@@ -73,6 +74,6 @@ class PlayerController extends Controller
     public function destroy($id)
     {
         Player::find($id)->delete();
-        return back()->with('success','Player deleted successfully');
+        return Redirect::route('player.index')->with('success','Player deleted successfully');
     }
 }
