@@ -41,14 +41,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="plus"><h4>Player pluses</h4></label>
-            <textarea class="form-control" name="plus" id="plus" rows="3"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="minus"><h4>Player minuses</h4></label>
-            <textarea class="form-control" name="minus" id="plus" rows="3"></textarea>
-        </div>
-        <div class="form-group">
             <button type="submit" class="btn btn-success float-right">Create player</button>
         </div>
         {!! Form::close() !!}

@@ -13922,20 +13922,18 @@ window.onload = function () {
     var app = new Vue({
         el: '#app',
         data: {},
-        methods: {
-            calculateAge: function calculateAge(dob) {
-                // birthday is a date
-                var diff_ms = Date.now() - dob.getTime();
-                var age_dt = new Date(diff_ms);
-                return Math.abs(age_dt.getUTCFullYear() - 1970);
-            }
-        },
+        methods: {},
         components: {
             Datepicker: __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker__["a" /* default */]
         },
         mounted: function mounted() {
             __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#birthday').addClass('form-control');
         }
+    });
+
+    var comments = new Vue({
+        el: '#comments',
+        date: {}
     });
 };
 

@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('player', 'PlayerController')->middleware('auth');
+
+Route::post('comment/store', 'CommentsController@store')->name('comment.store');
+Route::delete('comment/delete/{comment}', 'CommentsController@destroy')->name('comment.destroy');
+

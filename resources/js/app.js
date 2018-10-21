@@ -30,11 +30,6 @@ window.onload = function () {
         data: {
         },
         methods: {
-            calculateAge: function(dob) { // birthday is a date
-                var diff_ms = Date.now() - dob.getTime();
-                var age_dt = new Date(diff_ms);
-                return Math.abs(age_dt.getUTCFullYear() - 1970);
-            }
         },
         components: {
             Datepicker
@@ -43,4 +38,9 @@ window.onload = function () {
             $('#birthday').addClass('form-control');
         },
     });
+
+    const comments = new Vue({
+        el: '#comments',
+        date: {}
+    })
 }
