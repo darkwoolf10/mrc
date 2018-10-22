@@ -19,10 +19,9 @@ class CommentsController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        dd(1);
-//        Comment::find($comment->id)->delete();
-//        return Redirect::route('player.index');
+        Comment::find($comment->id)->delete();
+        return redirect()->back();
     }
 }

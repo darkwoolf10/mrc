@@ -22,21 +22,21 @@
                             <input type="text" name="text" class="form-control" id="plus" placeholder="Запишите новое достежение">
                             <button class="btn btn-primary"><i class="fas fa-trophy"></i></button>
                         </div>
-                        <br>
-                        <ul class="list-group">
-                            @foreach($pluses as $comment)
-                                <li class="list-group-item list-group-item-action">
-                                    {{$comment->text}}
-                                    <form action="{{ route('comment.destroy', ['id' => $comment->id]) }}" method="post" class="d-inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <br>
                     </form>
+                    <br>
+                    <ul class="list-group">
+                        @foreach($pluses as $comment)
+                            <li class="list-group-item list-group-item-action">
+                                {{$comment->text}}
+                                <form action="{{ route('comment.destroy', ['comment' => $comment]) }}" method="post" class="d-inline">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <br>
                 </div>
 
                 <div class="col-md-6 col-sm-12">
@@ -49,13 +49,20 @@
                             <input type="text" name="text" class="form-control" id="plus" placeholder="Чем вы разочарованы?">
                             <button class="btn btn-primary"><i class="fas fa-frown"></i></button>
                         </div>
-                        <br>
-                        <ul class="list-group">
-                        @foreach($minuses as $comment)
-                            <li class="list-group-item list-group-item-action">{{$comment->text}}</li>
-                        @endforeach
-                        </ul>
                     </form>
+                    <br>
+                    <ul class="list-group">
+                        @foreach($minuses as $comment)
+                            <li class="list-group-item list-group-item-action">
+                                {{$comment->text}}
+                                <form action="{{ route('comment.destroy', ['comment' => $comment]) }}" method="post" class="d-inline">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
         </div>
     </div>
