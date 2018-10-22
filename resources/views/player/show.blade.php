@@ -25,7 +25,14 @@
                         <br>
                         <ul class="list-group">
                             @foreach($pluses as $comment)
-                                <li class="list-group-item list-group-item-action">{{$comment->text}}</li>
+                                <li class="list-group-item list-group-item-action">
+                                    {{$comment->text}}
+                                    <form action="{{ route('comment.destroy', ['id' => $comment->id]) }}" method="post" class="d-inline">
+                                        {{ method_field('DELETE') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </li>
                             @endforeach
                         </ul>
                         <br>

@@ -11,8 +11,8 @@ class PlayerController extends Controller
 {
     public function index()
     {
-        $players = Player::all();
-        return view('player.index', ['players' => $players]);
+        $players = Player::withCount('pluses')->withCount('minuses')->get();
+        return view('player.index', ['players' => $players,]);
     }
 
     public function create()
@@ -58,6 +58,7 @@ class PlayerController extends Controller
         $player = Player::find($id);
         return view('player.edit', ['player' => $player]);
     }
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -78,9 +79,16 @@ class PlayerController extends Controller
             ->with('success','Player updated successfully');
 
     }
+
     public function destroy($id)
     {
         Player::find($id)->delete();
-        return Redirect::route('player.index')->with('success','Player deleted successfully');
+        return Redirect::route('player.show')->with('success','Player deleted successfully');
+    }
+
+    public function stat()
+    {
+        $players = Player::all();
+        return view('player.stat', ['players' => $players]);
     }
 }

@@ -28,6 +28,7 @@
                 @if(Auth::check())
                     <a class="navbar-brand" href="{{ url('/player') }}">{{ config('app.name') }}</a>
                     <a class="navbar-brand" href="{{ url('/player/create') }}">Create player</a>
+                    <a class="navbar-brand" href="{{ route('stat') }}">Stat</a>
                 @else
                     <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
                 @endif

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CommentsController extends Controller
 {
@@ -18,8 +19,10 @@ class CommentsController extends Controller
         //
     }
 
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+        dd(1);
+//        Comment::find($comment->id)->delete();
+//        return Redirect::route('player.index');
     }
 }

@@ -12,4 +12,5 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Player', 'player_id', 'id');
     }
+
 }
