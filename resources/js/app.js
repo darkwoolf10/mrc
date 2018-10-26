@@ -25,7 +25,10 @@ import VModal from 'vue-js-modal';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.use(VModal, {componentName: 'hello-modal'});
+
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('comment-component', require('./components/CommentComponent.vue'));
+
 window.onload = function () {
     const app = new Vue({
         el: '#app',

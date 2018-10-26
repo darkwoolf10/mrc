@@ -21,5 +21,5 @@ Route::resource('player', 'PlayerController')->middleware('auth');
 Route::get('stat', 'PlayerController@stat')->name('stat');
 
 Route::post('comment/store', 'CommentsController@store')->name('comment.store');
-Route::delete('comment/delete/{comment}', 'CommentsController@destroy')->name('comment.destroy');
+Route::delete('comment/delete/{id}', 'CommentsController@destroy')->name('comment.destroy');
 
