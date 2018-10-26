@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
-    protected $fillable = ['name', 'surname', 'rank', 'age', 'plus', 'minus'];
+    protected $guarded = [];
 
     public function comments()
     {
@@ -21,5 +21,10 @@ class Player extends Model
     public function minuses()
     {
         return $this->comments()->where('characteristic', 0);
+    }
+
+    public function age()
+    {
+        return \Carbon::parse($this->birthday)->age;
     }
 }

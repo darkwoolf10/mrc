@@ -19,7 +19,7 @@
                     <td><a href={{ route('player.show',$player->id) }}>{{$player->name}}</a></td>
                     <td><a href={{ route('player.show',$player->id) }}>{{$player->surname}}</a></td>
                     <td>{{$player->rank}}</td>
-                    <td>{{$player->age}}</td>
+                    <td>{{$player->age()}}</td>
                     @if($player->birthday > 0)
                         <td>{{date('F j, Y', strtotime($player->birthday))}}</td>
                     @else

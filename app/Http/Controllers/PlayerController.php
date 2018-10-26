@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Player;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 

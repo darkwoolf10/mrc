@@ -10,6 +10,9 @@ class CommentsController extends Controller
 {
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'text' => 'required|text',
+        ]);
         Comment::create($request->all());
         return redirect()->back();
     }
