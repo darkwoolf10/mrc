@@ -28,6 +28,7 @@ Vue.use(VModal, {componentName: 'hello-modal'});
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('comment-component', require('./components/CommentComponent.vue'));
+Vue.component('stat-component', require('./components/StatComponent.vue'));
 
 window.onload = function () {
     const app = new Vue({
@@ -52,9 +53,4 @@ window.onload = function () {
             $('#birthday').addClass('form-control');
         },
     });
-
-    const comments = new Vue({
-        el: '#comments',
-        date: {}
-    })
 };

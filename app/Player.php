@@ -8,6 +8,8 @@ class Player extends Model
 {
     protected $guarded = [];
 
+    protected $appends = ['age'];
+
     public function comments()
     {
         return $this->hasMany('App\Comment');
@@ -23,8 +25,8 @@ class Player extends Model
         return $this->comments()->where('characteristic', 0);
     }
 
-    public function age()
+    public function getAgeAttribute()
     {
-        return \Carbon::parse($this->birthday)->age;
+        return \Carbon::parse($this->attributes['birthday'])->age;
     }
 }
