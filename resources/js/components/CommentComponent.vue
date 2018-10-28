@@ -1,23 +1,23 @@
 <template>
     <div class="col-md-6 col-sm-12">
-        <form @submit="addComment()">
+        <form action="/comment/store" method="post">
             <input type="hidden" name="player_id" :value="player.id">
             <input type="hidden" name="characteristic" :value="characteristicType">
+            <input type="hidden" name="_token" :value="csrf">
             <h3 class="center" v-if="characteristicType == 1"><i class="fas fa-star"></i></h3>
             <h3 class="center" v-else><i class="fas fa-frown"></i></h3>
             <div class="input-group">
                 <input type="text" name="text" class="form-control" id="plus" placeholder="Запишите новое достежение">
-                <button class="btn btn-primary"><i class="fab fa-telegram-plane fa-lg"></i></button>
+                <button type="submit" class="btn btn-primary"><i class="fab fa-telegram-plane fa-lg"></i></button>
             </div>
         </form>
         <br>
         <ul class="list-group">
-            <li class="list-group-item list-group-item-action" v-for="comment in characteristic" :key="">
+            <li class="list-group-item list-group-item-action" v-for="comment in characteristic" :key="comment.id">
                 {{comment.text}}
-                <!--<form  class="d-inline">-->
-                    {{comment.id}}
+                <form  class="d-inline">
                     <button @click="commentDelete(comment.id)" type="button" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
-                <!--</form>-->
+                </form>
             </li>
         </ul>
         <br>
@@ -30,17 +30,30 @@
         props: [
             'player',
             'characteristic',
-            'characteristicType'
+            'characteristicType',
         ],
+        data: function() {
+            return {
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                count: 0,
+                id: 0
+            }
+        },
         mounted() {
             // this.update();
         },
         methods: {
             update: function () {
-                console.log(this.characteristicType);
+                axios.get()
             },
-            commentDelete: function (id) {
-                console.log(id);
+            commentDelete: function (id, event) {
+                axios.post('/comment/delete/' + id).then((response) => {
+                    console.log(response.data.status);
+                });
+                console.log(event);
+            },
+            addComment() {
+
             }
         }
     }

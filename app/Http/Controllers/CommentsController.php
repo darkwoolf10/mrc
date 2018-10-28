@@ -11,7 +11,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'text' => 'required|text',
+            'text' => 'required|string',
         ]);
         Comment::create($request->all());
         return redirect()->back();
@@ -22,9 +22,11 @@ class CommentsController extends Controller
         //
     }
 
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        Comment::find($comment->id)->delete();
-        return redirect()->back();
+        Comment::find($id)->delete();
+        return response()->json([
+            'status' => 'Ok]',
+        ]);
     }
 }

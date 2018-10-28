@@ -84,10 +84,4 @@ class PlayerController extends Controller
         Player::find($id)->delete();
         return Redirect::route('player.show')->with('success','Player deleted successfully');
     }
-
-    public function stat()
-    {
-        $players = Player::all();
-        return view('player.stat', ['players' => $players]);
-    }
 }

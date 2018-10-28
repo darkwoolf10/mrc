@@ -25,12 +25,14 @@
             <comment-component
                     :player="{{ json_encode($player) }}"
                     :characteristic="{{json_encode($pluses)}}"
-                    v-bind:characteristic-type="1">
+                    v-bind:characteristic-type="1"
+                    :csrf-token="{{ csrf_token() }}">
             </comment-component>
             <comment-component
                     :player="{{ json_encode($player) }}"
                     :characteristic="{{json_encode($minuses)}}"
-                    v-bind:characteristic-type="0">
+                    v-bind:characteristic-type="0"
+                    :csrf-token="{{ csrf_token() }}">
             </comment-component>
         </div>
     </div>

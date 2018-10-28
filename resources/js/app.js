@@ -50,6 +50,7 @@ window.onload = function () {
             Datepicker
         },
         mounted() {
+            $('meta[name="csrf-token"]').attr('content');
             $('#birthday').addClass('form-control');
         },
     });
