@@ -11,7 +11,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="player in players">
+        <tr v-for="player, key in players">
             <td><a href="">{{player.name}}</a></td>
             <td><a href="">{{player.surname}}</a></td>
             <td>{{player.rank}}</td>
@@ -21,9 +21,7 @@
             <td>
                 <a href="" class="btn btn-primary"><i class="fas fa-user-astronaut"></i></a>
                 <a class="btn btn-success" href=""><i class="fas fa-edit"></i></a>
-                <form class="d-inline">
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                </form>
+                <button type="button" @click="delPlayer(player.id, key)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>
         </tbody>
@@ -46,6 +44,11 @@
             update:function() {
                 axios.get('/stat/getData').then((response) => {
                     this.players = response.data.players;
+                })
+            },
+            delPlayer: function (id, key) {
+                axios.delete('/player/' + id).then((response) => {
+                    this.$delete(this.players, key);
                 })
             }
         }

@@ -52636,7 +52636,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52647,8 +52647,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -52699,6 +52697,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('/stat/getData').then(function (response) {
                 _this.players = response.data.players;
             });
+        },
+        delPlayer: function delPlayer(id, key) {
+            var _this2 = this;
+
+            axios.delete('/player/' + id).then(function (response) {
+                _this2.$delete(_this2.players, key);
+            });
         }
     }
 });
@@ -52716,7 +52721,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "tbody",
-      _vm._l(_vm.players, function(player) {
+      _vm._l(_vm.players, function(player, key) {
         return _c("tr", [
           _c("td", [
             _c("a", { attrs: { href: "" } }, [_vm._v(_vm._s(player.name))])
@@ -52734,7 +52739,25 @@ var render = function() {
             ? _c("td", [_vm._v(_vm._s(player.birthday))])
             : _c("td", [_vm._v("Birthday not found")]),
           _vm._v(" "),
-          _vm._m(1, true)
+          _c("td", [
+            _vm._m(1, true),
+            _vm._v(" "),
+            _vm._m(2, true),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.delPlayer(player.id, key)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-trash-alt" })]
+            )
+          ])
         ])
       })
     )
@@ -52765,22 +52788,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-primary", attrs: { href: "" } }, [
-        _c("i", { staticClass: "fas fa-user-astronaut" })
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-success", attrs: { href: "" } }, [
-        _c("i", { staticClass: "fas fa-edit" })
-      ]),
-      _vm._v(" "),
-      _c("form", { staticClass: "d-inline" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-danger", attrs: { type: "submit" } },
-          [_c("i", { staticClass: "fas fa-trash-alt" })]
-        )
-      ])
+    return _c("a", { staticClass: "btn btn-primary", attrs: { href: "" } }, [
+      _c("i", { staticClass: "fas fa-user-astronaut" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-success", attrs: { href: "" } }, [
+      _c("i", { staticClass: "fas fa-edit" })
     ])
   }
 ]

@@ -82,6 +82,9 @@ class PlayerController extends Controller
     public function destroy($id)
     {
         Player::find($id)->delete();
-        return Redirect::route('player.show')->with('success','Player deleted successfully');
+        return response()->json([
+            'status' => "OK",
+            'response' => 'Player with id ' . $id . 'delete',
+        ]);
     }
 }
