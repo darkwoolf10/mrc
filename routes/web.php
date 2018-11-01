@@ -25,3 +25,8 @@ Route::get('/stat/getData', 'StatController@getData')->name('getStatData');
 Route::post('comment/store', 'CommentsController@store')->name('comment.store');
 Route::post('comment/delete/{id}', 'CommentsController@destroy')->name('comment.destroy');
 
+
+
+//API
+Route::get('/api/show/{id}', 'Api\ApiCommentController@show')->name('api.comment.show');
+

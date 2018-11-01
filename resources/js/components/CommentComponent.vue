@@ -1,61 +1,85 @@
 <template>
-    <div class="col-md-6 col-sm-12">
-        <form action="/comment/store" method="post">
-            <input type="hidden" name="player_id" :value="player.id">
-            <input type="hidden" name="characteristic" :value="characteristicType">
-            <input type="hidden" name="_token" :value="csrf">
-            <h3 class="center" v-if="characteristicType == 1"><i class="fas fa-star"></i></h3>
-            <h3 class="center" v-else><i class="fas fa-frown"></i></h3>
-            <div class="input-group">
-                <input type="text" name="text" class="form-control" id="plus" placeholder="Запишите новое достежение">
-                <button type="submit" class="btn btn-primary"><i class="fab fa-telegram-plane fa-lg"></i></button>
-            </div>
-        </form>
-        <br>
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-action" v-for="comment in characteristic" :key="comment.id">
-                {{comment.text}}
-                <form  class="d-inline">
-                    <button @click="commentDelete(comment.id)" type="button" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
-                </form>
-            </li>
-        </ul>
-        <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <form action="/comment/store" method="post">
+                <input type="hidden" name="player_id" :value="id">
+                <input type="hidden" name="characteristic" value="1">
+                <input type="hidden" name="_token" :value="csrf">
+                <h3 class="center"><i class="fas fa-star"></i></h3>
+                <div class="input-group">
+                    <input type="text" name="text" class="form-control" id="plus" placeholder="Запишите новое достежение">
+                    <button type="submit" class="btn btn-primary"><i class="fab fa-telegram-plane fa-lg"></i></button>
+                </div>
+            </form>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action" v-for="(comment, key) in pluses">
+                    {{comment.text}}
+                    <button type="button" @click="commentDelete(comment.id, key, true)" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
+                </li>
+            </ul>
+            <br>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <form action="/comment/store" method="post">
+                <input type="hidden" name="player_id" :value="id">
+                <input type="hidden" name="characteristic" value="0">
+                <input type="hidden" name="_token" :value="csrf">
+                <h3 class="center"><i class="fas fa-star"></i></h3>
+                <div class="input-group">
+                    <input type="text" name="text" class="form-control" id="minus" placeholder="Чем вы разочарованы?">
+                    <button type="submit" class="btn btn-primary"><i class="fab fa-telegram-plane fa-lg"></i></button>
+                </div>
+            </form>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action" v-for="(comment, key) in minuses">
+                    {{comment.text}}
+                    <button @click="commentDelete(comment.id, key, false)" type="button" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i></button>
+                </li>
+            </ul>
+            <br>
+        </div>
     </div>
-
 </template>
 
 <script>
     export default {
-        props: [
-            'player',
-            'characteristic',
-            'characteristicType',
+        props : [
+            'id'
         ],
         data: function() {
             return {
-                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                count: 0,
-                id: 0
+                pluses: '',
+                minuses: '',
+                csrf: this.csrf
             }
         },
         mounted() {
-            // this.update();
+            this.update();
+            this.csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         },
         methods: {
-            update: function () {
-                axios.get()
+            update:function() {
+                axios.get('/api/show/' + this.id).then((response) => {
+                    this.pluses = response.data.pluses;
+                    this.minuses = response.data.minuses;
+                })
             },
-            commentDelete: function (id, event) {
+            commentDelete: function (id, key, characteristic) {
+                if (characteristic == true) {
+                    var list =  this.pluses;
+                } else {
+                    var list =  this.minuses;
+                }
                 axios.post('/comment/delete/' + id).then((response) => {
-                    console.log(response.data.status);
+                    this.$delete(list, key);
                 });
-                console.log(event);
             },
-            addComment() {
-
+            addComment:function() {
+                console.log('add comment');
             }
-        }
+        },
     }
 </script>
 

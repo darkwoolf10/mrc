@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Player;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class PlayerController extends Controller
 {
@@ -41,14 +40,10 @@ class PlayerController extends Controller
     public function show($id)
     {
         $player = Player::find($id);
-        $pluses = $player->comments->where('characteristic', '=', '1');
-        $minuses = $player->comments->where('characteristic', '=', '0');
         $age = \Carbon::parse($player->birthday)->age;
         return view('player.show', [
             'player' => $player,
             'age' => $age,
-            'pluses' => $pluses,
-            'minuses' => $minuses,
         ]);
     }
 

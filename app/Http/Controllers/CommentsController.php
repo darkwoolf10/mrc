@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class CommentsController extends Controller
 {
+    public function index()
+    {
+
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

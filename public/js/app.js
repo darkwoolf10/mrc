@@ -52345,7 +52345,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52416,31 +52416,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['player', 'characteristic', 'characteristicType'],
+    props: ['id'],
     data: function data() {
         return {
-            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            count: 0,
-            id: 0
+            pluses: '',
+            minuses: '',
+            csrf: this.csrf
         };
     },
     mounted: function mounted() {
-        // this.update();
+        this.update();
+        this.csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     },
 
     methods: {
         update: function update() {
-            axios.get();
-        },
-        commentDelete: function commentDelete(id, event) {
-            axios.post('/comment/delete/' + id).then(function (response) {
-                console.log(response.data.status);
+            var _this = this;
+
+            axios.get('/api/show/' + this.id).then(function (response) {
+                _this.pluses = response.data.pluses;
+                _this.minuses = response.data.minuses;
             });
-            console.log(event);
         },
-        addComment: function addComment() {}
+        commentDelete: function commentDelete(id, key, characteristic) {
+            var _this2 = this;
+
+            if (characteristic == true) {
+                var list = this.pluses;
+            } else {
+                var list = this.minuses;
+            }
+            axios.post('/comment/delete/' + id).then(function (response) {
+                _this2.$delete(list, key);
+            });
+        },
+        addComment: function addComment() {
+            console.log('add comment');
+        }
     }
 });
 
@@ -52452,49 +52484,43 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-6 col-sm-12" }, [
-    _c("form", { attrs: { action: "/comment/store", method: "post" } }, [
-      _c("input", {
-        attrs: { type: "hidden", name: "player_id" },
-        domProps: { value: _vm.player.id }
-      }),
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-6 col-sm-12" }, [
+      _c("form", { attrs: { action: "/comment/store", method: "post" } }, [
+        _c("input", {
+          attrs: { type: "hidden", name: "player_id" },
+          domProps: { value: _vm.id }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "hidden", name: "characteristic", value: "1" }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1)
+      ]),
       _vm._v(" "),
-      _c("input", {
-        attrs: { type: "hidden", name: "characteristic" },
-        domProps: { value: _vm.characteristicType }
-      }),
+      _c("br"),
       _vm._v(" "),
-      _c("input", {
-        attrs: { type: "hidden", name: "_token" },
-        domProps: { value: _vm.csrf }
-      }),
-      _vm._v(" "),
-      _vm.characteristicType == 1
-        ? _c("h3", { staticClass: "center" }, [
-            _c("i", { staticClass: "fas fa-star" })
-          ])
-        : _c("h3", { staticClass: "center" }, [
-            _c("i", { staticClass: "fas fa-frown" })
-          ]),
-      _vm._v(" "),
-      _vm._m(0)
-    ]),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c(
-      "ul",
-      { staticClass: "list-group" },
-      _vm._l(_vm.characteristic, function(comment) {
-        return _c(
-          "li",
-          {
-            key: comment.id,
-            staticClass: "list-group-item list-group-item-action"
-          },
-          [
-            _vm._v("\n            " + _vm._s(comment.text) + "\n            "),
-            _c("form", { staticClass: "d-inline" }, [
+      _c(
+        "ul",
+        { staticClass: "list-group" },
+        _vm._l(_vm.pluses, function(comment, key) {
+          return _c(
+            "li",
+            { staticClass: "list-group-item list-group-item-action" },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(comment.text) +
+                  "\n                "
+              ),
               _c(
                 "button",
                 {
@@ -52502,22 +52528,87 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.commentDelete(comment.id)
+                      _vm.commentDelete(comment.id, key, true)
                     }
                   }
                 },
                 [_c("i", { staticClass: "fas fa-trash-alt" })]
               )
-            ])
-          ]
-        )
-      })
-    ),
+            ]
+          )
+        })
+      ),
+      _vm._v(" "),
+      _c("br")
+    ]),
     _vm._v(" "),
-    _c("br")
+    _c("div", { staticClass: "col-md-6 col-sm-12" }, [
+      _c("form", { attrs: { action: "/comment/store", method: "post" } }, [
+        _c("input", {
+          attrs: { type: "hidden", name: "player_id" },
+          domProps: { value: _vm.id }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "hidden", name: "characteristic", value: "0" }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3)
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "ul",
+        { staticClass: "list-group" },
+        _vm._l(_vm.minuses, function(comment, key) {
+          return _c(
+            "li",
+            { staticClass: "list-group-item list-group-item-action" },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(comment.text) +
+                  "\n                "
+              ),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger float-right",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.commentDelete(comment.id, key, false)
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-trash-alt" })]
+              )
+            ]
+          )
+        })
+      ),
+      _vm._v(" "),
+      _c("br")
+    ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "center" }, [
+      _c("i", { staticClass: "fas fa-star" })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -52530,6 +52621,36 @@ var staticRenderFns = [
           name: "text",
           id: "plus",
           placeholder: "Запишите новое достежение"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_c("i", { staticClass: "fab fa-telegram-plane fa-lg" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "center" }, [
+      _c("i", { staticClass: "fas fa-star" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group" }, [
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "text",
+          id: "minus",
+          placeholder: "Чем вы разочарованы?"
         }
       }),
       _vm._v(" "),

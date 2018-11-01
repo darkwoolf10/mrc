@@ -25,9 +25,8 @@
                 <input type="text" name="surname" class="form-control" id="surname" placeholder="Фамилия игрока">
             </div>
             <div class="form-group row">
-                <label for="birthday" class="col-2 col-form-label"><h4>Player birthday</h4></label>
-                <div class="col-10">
-                    <datepicker id="birthday" name="birthday"></datepicker>
+                <div class="col-12">
+                    <datepicker id="birthday" name="birthday" :language="uk"></datepicker>
                 </div>
             </div>
             <div class="form-group row">
