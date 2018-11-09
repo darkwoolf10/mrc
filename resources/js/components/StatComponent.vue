@@ -19,8 +19,8 @@
             <td v-if="player.birthday">{{player.birthday}}</td>
             <td v-else>Birthday not found</td>
             <td>
-                <a href="" class="btn btn-primary"><i class="fas fa-user-astronaut"></i></a>
-                <a class="btn btn-success" href=""><i class="fas fa-edit"></i></a>
+                <a class="btn btn-primary" :href="'/player/' + player.id"><i class="fas fa-user-astronaut"></i></a>
+                <a class="btn btn-success" :href="'/player/' + player.id + '/edit'"><i class="fas fa-edit"></i></a>
                 <button type="button" @click="delPlayer(player.id, key)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>

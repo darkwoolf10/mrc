@@ -52345,7 +52345,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52434,6 +52434,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['id'],
@@ -52458,7 +52462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.minuses = response.data.minuses;
             });
         },
-        commentDelete: function commentDelete(id, key, characteristic) {
+        commentDelete: function commentDelete(id, key, characteristic, $event) {
             var _this2 = this;
 
             if (characteristic == true) {
@@ -52471,7 +52475,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         addComment: function addComment() {
-            console.log('add comment');
+            axios.post('/comment/store').then(function (response) {
+                console.log(response);
+            });
         }
     }
 });
@@ -52486,25 +52492,32 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-6 col-sm-12" }, [
-      _c("form", { attrs: { action: "/comment/store", method: "post" } }, [
-        _c("input", {
-          attrs: { type: "hidden", name: "player_id" },
-          domProps: { value: _vm.id }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "hidden", name: "characteristic", value: "1" }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "hidden", name: "_token" },
-          domProps: { value: _vm.csrf }
-        }),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1)
-      ]),
+      _c(
+        "form",
+        {
+          attrs: { action: "/comment/store", method: "post" },
+          on: { submit: _vm.addComment }
+        },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "player_id" },
+            domProps: { value: _vm.id }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "hidden", name: "characteristic", value: "1" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1)
+        ]
+      ),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
@@ -52528,7 +52541,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.commentDelete(comment.id, key, true)
+                      _vm.commentDelete(comment.id, key, true, $event)
                     }
                   }
                 },
@@ -52585,7 +52598,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.commentDelete(comment.id, key, false)
+                      _vm.commentDelete(comment.id, key, false, $event)
                     }
                   }
                 },
@@ -52636,7 +52649,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "center" }, [
-      _c("i", { staticClass: "fas fa-star" })
+      _c("i", { staticClass: "fas fa-sad-tear" })
     ])
   },
   function() {
@@ -52861,9 +52874,23 @@ var render = function() {
             : _c("td", [_vm._v("Birthday not found")]),
           _vm._v(" "),
           _c("td", [
-            _vm._m(1, true),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { href: "/player/" + player.id }
+              },
+              [_c("i", { staticClass: "fas fa-user-astronaut" })]
+            ),
             _vm._v(" "),
-            _vm._m(2, true),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-success",
+                attrs: { href: "/player/" + player.id + "/edit" }
+              },
+              [_c("i", { staticClass: "fas fa-edit" })]
+            ),
             _vm._v(" "),
             _c(
               "button",
@@ -52903,22 +52930,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "btn btn-primary", attrs: { href: "" } }, [
-      _c("i", { staticClass: "fas fa-user-astronaut" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "btn btn-success", attrs: { href: "" } }, [
-      _c("i", { staticClass: "fas fa-edit" })
     ])
   }
 ]
