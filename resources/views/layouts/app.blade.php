@@ -21,6 +21,9 @@
 </head>
 <body>
     <div id="app">
+        {{--<modal name="hello-world">--}}
+            {{--hello, world!--}}
+        {{--</modal>--}}
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 @if(Auth::check())

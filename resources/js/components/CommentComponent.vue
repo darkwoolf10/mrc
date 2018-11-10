@@ -82,7 +82,6 @@
             },
             addComment:function() {
                 axios.post('/comment/store').then((response) => {
-                    console.log(response);
                 });
             }
         },

@@ -26,7 +26,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-12">
-                    <datepicker id="birthday" name="birthday" :language="uk"></datepicker>
+                    <datepicker id="birthday" name="birthday" :language="ru"></datepicker>
                 </div>
             </div>
             <div class="form-group row">

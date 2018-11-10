@@ -10,6 +10,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />
+        <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
 
         <!-- Styles -->
         <style>
@@ -72,18 +74,17 @@
         </style>
     </head>
     <body id="welcome-body">
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height" id="welcome-navbar">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/player') }}">Home</a>
+                        <a  @click="load" href="{{ url('/player') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a  @click="load" href="{{ route('login') }}">Login</a>
+                        <a  @click="load" href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
-
             <div class="content">
                 <div id="welcome">
                     <h1>MRC</h1>
@@ -92,6 +93,16 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="/js/app.js"></script>
+        <script>
+            new Vue({
+                el: '#welcome-navbar',
+                methods: {
+                    load () {
+                        NProgress.start();
+                        NProgress.set(0.7);
+                    }
+                }
+            })
+        </script>
     </body>
 </html>

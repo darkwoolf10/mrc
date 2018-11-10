@@ -16,6 +16,7 @@ window.$ = window.jQuery = $;
 window.Vue = require('vue');
 
 import Datepicker from 'vuejs-datepicker';
+import {ru, en} from 'vuejs-datepicker/dist/locale';
 import VModal from 'vue-js-modal';
 
 
@@ -24,7 +25,7 @@ import VModal from 'vue-js-modal';
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.use(VModal, {componentName: 'hello-modal'});
+Vue.use(VModal);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('comment-component', require('./components/CommentComponent.vue'));
@@ -33,17 +34,21 @@ Vue.component('stat-component', require('./components/StatComponent.vue'));
 window.onload = function () {
     const app = new Vue({
         el: '#app',
-        data: {
+        data() {
+            return {
+                ru,
+                en
+            };
         },
         methods: {
+            beforeOpen (event) {
+                console.log("run modal window");
+            },
             show () {
                 this.$modal.show('hello-world');
             },
             hide () {
                 this.$modal.hide('hello-world');
-            },
-            beforeOpen (event) {
-                console.log("run modal window");
             }
         },
         components: {
