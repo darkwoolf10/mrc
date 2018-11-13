@@ -52525,7 +52525,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         deleteComment: function deleteComment(index, list) {
             var comment = list[index];
-            axios.post('/   comment/delete/' + comment.id).then(function (response) {
+            axios.post('/comment/delete/' + comment.id).then(function (response) {
                 list.splice(index, 1);
             });
         },
