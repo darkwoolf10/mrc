@@ -78,10 +78,10 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a  @click="load" href="{{ url('/player') }}">Home</a>
+                        <a @click="load" href="{{ url('/player') }}">Home</a>
                     @else
-                        <a  @click="load" href="{{ route('login') }}">Login</a>
-                        <a  @click="load" href="{{ route('register') }}">Register</a>
+                        <a @click="load" href="{{ route('login') }}">Login</a>
+                        <a @click="load" href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif

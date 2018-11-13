@@ -13,12 +13,12 @@
             </form>
             <br>
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action" v-for="(comment, key) in pluses">
-                    {{comment.text}}
-                    <button type="button" @click="commentDelete(comment.id, key, true, $event)" class="btn btn-danger float-right">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </li>
+                <comment-item
+                        v-for="(comment, index) in pluses"
+                        :comment="comment"
+                        :key="index"
+                        @delete="deleteComment(index, pluses)"
+                />
             </ul>
             <br>
         </div>
@@ -35,12 +35,12 @@
             </form>
             <br>
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action" v-for="(comment, key) in minuses">
-                    {{comment.text}}
-                    <button @click="commentDelete(comment.id, key, false, $event)" type="button" class="btn btn-danger float-right">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </li>
+                <comment-item
+                        v-for="(comment, index) in minuses"
+                        :comment="comment"
+                        :key="index"
+                        @delete="deleteComment(index, minuses)"
+                />
             </ul>
             <br>
         </div>
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+    import CommentItem from './CommentItem'
+
     export default {
         props : [
             'id'
@@ -63,22 +65,21 @@
             this.update();
             this.csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         },
+        components: {
+            CommentItem
+        },
         methods: {
+            deleteComment(index, list) {
+                const comment = list[index];
+                axios.post('/comment/delete/' + comment.id).then((response) => {
+                    list.splice(index, 1);
+                });
+            },
             update:function() {
                 axios.get('/api/show/' + this.id).then((response) => {
-                    this.pluses = response.data.pluses;
-                    this.minuses = response.data.minuses;
+                    this.pluses = Object.values(response.data.pluses);
+                    this.minuses = Object.values(response.data.minuses);
                 })
-            },
-            commentDelete: function (id, key, characteristic, $event) {
-                if (characteristic == true) {
-                    var list =  this.pluses;
-                } else {
-                    var list =  this.minuses;
-                }
-                axios.post('/comment/delete/' + id).then((response) => {
-                    this.$delete(list, key);
-                });
             },
             addComment:function() {
                 axios.post('/comment/store').then((response) => {

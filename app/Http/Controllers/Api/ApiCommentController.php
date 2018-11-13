@@ -12,6 +12,7 @@ class ApiCommentController extends Controller
         $player = Player::find($id);
         $pluses = $player->comments->where('characteristic', '=', '1');
         $minuses = $player->comments->where('characteristic', '=', '0');
+
         return response()->json([
             'pluses' => $pluses,
             'minuses' => $minuses,

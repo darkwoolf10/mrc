@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CommentsController extends Controller
 {
@@ -29,9 +30,13 @@ class CommentsController extends Controller
 
     public function destroy($id)
     {
-        Comment::find($id)->delete();
+        $comment = Comment::find($id);
+        if (!$comment) {
+            throw new NotFoundHttpException('Comment not found');
+        }
+        $comment->delete();
         return response()->json([
-            'status' => 'Ok]',
+            'status' => 'Ok',
         ]);
     }
 }
