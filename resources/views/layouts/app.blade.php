@@ -25,11 +25,9 @@
             {{--hello, world!--}}
         {{--</modal>--}}
         <Slide id="menu">
-            <a @click="load" href="{{ url('/player') }}"><span><i class="fas fa-home"></i> {{ config('app.name') }}</span></a>
-            @if(Auth::check())
-                <a @click="load" href="{{ url('/player/create') }}"><span><i class="fas fa-user-astronaut"></i> Create player</span></a>
-                <a @click="load" href="{{ route('stat') }}"><span><i class="fas fa-chart-bar"></i> Stat</span></a>
-            @endif
+            <a href="{{ url('/player') }}"><span><i class="fas fa-home">{{ config('app.name') }}</i></span></a>
+            <a href="{{ url('/player/create') }}"><span><i class="fas fa-user-astronaut">Create_player</i></span></a>
+            <a href="{{ route('stat') }}"><span><i class="fas fa-chart-bar">Stat</i></span></a>
         </Slide>
 
         <main class="py-4" style="margin-top: 3em; ">
@@ -37,8 +35,6 @@
         </main>
     </div>
     <!-- Scripts -->
-    <link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet" />
-    <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

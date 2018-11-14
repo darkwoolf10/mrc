@@ -71,7 +71,7 @@
         methods: {
             deleteComment(index, list) {
                 const comment = list[index];
-                axios.post('comment/delete/' + comment.id).then((response) => {
+                axios.post('/comment/delete/' + comment.id).then((response) => {
                     list.splice(index, 1);
                 });
             },
