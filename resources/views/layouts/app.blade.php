@@ -24,62 +24,16 @@
         {{--<modal name="hello-world">--}}
             {{--hello, world!--}}
         {{--</modal>--}}
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                @if(Auth::check())
-                    <a class="navbar-brand" href="{{ url('/player') }}">{{ config('app.name') }}</a>
-                    <a class="navbar-brand" href="{{ url('/player/create') }}">Create player</a>
-                    <a class="navbar-brand" href="{{ route('stat') }}">Stat</a>
-                @else
-                    <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
-                @endif
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <Slide id="menu">
+            <a href="{{ url('/player') }}"><span><i class="fas fa-home"></i> {{ config('app.name') }}</span></a>
+            @if(Auth::check())
+                <a href="{{ url('/player/create') }}"><span><i class="fas fa-user-astronaut"></i> Create player</span></a>
+                <a href="{{ route('stat') }}"><span><i class="fas fa-chart-bar"></i> Stat</span></a>
+            @endif
+        </Slide>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                @endif
-                            </li>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
+        <main class="py-4" style="margin-top: 3em; ">
             @yield('content')
         </main>
     </div>

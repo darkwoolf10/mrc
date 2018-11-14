@@ -12,8 +12,8 @@
         </thead>
         <tbody>
         <tr v-for="player, key in players">
-            <td><a href="">{{player.name}}</a></td>
-            <td><a href="">{{player.surname}}</a></td>
+            <td><a :href="'/player/' + player.id">{{player.name}}</a></td>
+            <td><a :href="'/player/' + player.id">{{player.surname}}</a></td>
             <td>{{player.rank}}</td>
             <td>{{player.age}}</td>
             <td v-if="player.birthday">{{player.birthday}}</td>

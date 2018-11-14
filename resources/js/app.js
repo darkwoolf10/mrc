@@ -18,6 +18,7 @@ window.Vue = require('vue');
 import Datepicker from 'vuejs-datepicker';
 import {ru, en} from 'vuejs-datepicker/dist/locale';
 import VModal from 'vue-js-modal';
+import { Slide } from 'vue-burger-menu'
 
 
 /**
@@ -52,7 +53,8 @@ window.onload = function () {
             }
         },
         components: {
-            Datepicker
+            Datepicker,
+            Slide
         },
         mounted() {
             $('meta[name="csrf-token"]').attr('content');
