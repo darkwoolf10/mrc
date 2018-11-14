@@ -11302,7 +11302,7 @@ function applyToTag (styleElement, obj) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.14.4
+ * @version 1.14.5
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -11399,7 +11399,8 @@ function getStyleComputedProperty(element, property) {
     return [];
   }
   // NOTE: 1 DOM access here
-  var css = getComputedStyle(element, null);
+  var window = element.ownerDocument.defaultView;
+  var css = window.getComputedStyle(element, null);
   return property ? css[property] : css;
 }
 
@@ -11487,7 +11488,7 @@ function getOffsetParent(element) {
   var noOffsetParent = isIE(10) ? document.body : null;
 
   // NOTE: 1 DOM access here
-  var offsetParent = element.offsetParent;
+  var offsetParent = element.offsetParent || null;
   // Skip hidden elements which don't have an offsetParent
   while (offsetParent === noOffsetParent && element.nextElementSibling) {
     offsetParent = (element = element.nextElementSibling).offsetParent;
@@ -11499,9 +11500,9 @@ function getOffsetParent(element) {
     return element ? element.ownerDocument.documentElement : document.documentElement;
   }
 
-  // .offsetParent will return the closest TD or TABLE in case
+  // .offsetParent will return the closest TH, TD or TABLE in case
   // no offsetParent is present, I hate this job...
-  if (['TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
+  if (['TH', 'TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
     return getOffsetParent(offsetParent);
   }
 
@@ -12049,7 +12050,8 @@ function getReferenceOffsets(state, popper, reference) {
  * @returns {Object} object containing width and height properties
  */
 function getOuterSizes(element) {
-  var styles = getComputedStyle(element);
+  var window = element.ownerDocument.defaultView;
+  var styles = window.getComputedStyle(element);
   var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
   var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
   var result = {
@@ -14368,6 +14370,10 @@ window.onload = function () {
             },
             hide: function hide() {
                 this.$modal.hide('hello-world');
+            },
+            load: function load() {
+                NProgress.start();
+                NProgress.set(0.7);
             }
         },
         components: {
@@ -49646,7 +49652,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 "use strict";
 /*!
- * vuejs-datepicker v1.5.3
+ * vuejs-datepicker v1.5.4
  * (c) 2016-2018 Charlie Kassel
  * Released under the MIT License.
  */
@@ -49950,12 +49956,21 @@ var utils = {
       start = this$1.setDate(new Date(start), this$1.getDate(new Date(start)) + 1);
     }
     return dates
+  },
+
+  /**
+   * method used as a prop validator for input values
+   * @param {*} val
+   * @return {Boolean}
+   */
+  validateDateInput: function validateDateInput (val) {
+    return val === null || val instanceof Date || typeof val === 'string' || typeof val === 'number'
   }
 };
 
 var makeDateUtils = function (useUtc) { return (Object.assign({}, utils, {useUtc: useUtc})); };
 
-Object.assign({}, utils)
+var utils$1 = Object.assign({}, utils)
 // eslint-disable-next-line
 ;
 
@@ -50697,7 +50712,9 @@ var PickerYear = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       if (!this.disabledDates || !this.disabledDates.to) {
         return false
       }
-      return Math.floor(this.utils.getFullYear(this.disabledDates.to) / 10) * 10 >= Math.floor(this.utils.getFullYear(this.pageDate) / 10) * 10
+      var disabledYear = this.utils.getFullYear(this.disabledDates.to);
+      var lastYearInPreviousPage = Math.floor(this.utils.getFullYear(this.pageDate) / 10) * 10 - 1;
+      return disabledYear > lastYearInPreviousPage
     },
     nextDecade: function nextDecade () {
       if (this.isNextDecadeDisabled()) {
@@ -50709,7 +50726,9 @@ var PickerYear = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       if (!this.disabledDates || !this.disabledDates.from) {
         return false
       }
-      return Math.ceil(this.utils.getFullYear(this.disabledDates.from) / 10) * 10 <= Math.ceil(this.utils.getFullYear(this.pageDate) / 10) * 10
+      var disabledYear = this.utils.getFullYear(this.disabledDates.from);
+      var firstYearInNextPage = Math.ceil(this.utils.getFullYear(this.pageDate) / 10) * 10;
+      return disabledYear < firstYearInNextPage
     },
 
     /**
@@ -50763,9 +50782,7 @@ var Datepicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
   },
   props: {
     value: {
-      validator: function (val) {
-        return val === null || val instanceof Date || typeof val === 'string' || typeof val === 'number'
-      }
+      validator: function (val) { return utils$1.validateDateInput(val); }
     },
     name: String,
     refName: String,
@@ -50779,9 +50796,7 @@ var Datepicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       default: function () { return en; }
     },
     openDate: {
-      validator: function (val) {
-        return val === null || val instanceof Date || typeof val === 'string' || typeof val === 'number'
-      }
+      validator: function (val) { return utils$1.validateDateInput(val); }
     },
     dayCellContent: Function,
     fullMonthName: Boolean,
@@ -50910,9 +50925,6 @@ var Datepicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
         return this.close(true)
       }
       this.setInitialView();
-      if (!this.isInline) {
-        this.$emit('opened');
-      }
     },
     /**
      * Sets the initial picker page view: day, month or year
@@ -51091,12 +51103,12 @@ var Datepicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
     },
     /**
      * Close all calendar layers
-     * @param {Boolean} full - emit close event
+     * @param {Boolean} emitEvent - emit close event
      */
-    close: function close (full) {
+    close: function close (emitEvent) {
       this.showDayView = this.showMonthView = this.showYearView = false;
       if (!this.isInline) {
-        if (full) {
+        if (emitEvent) {
           this.$emit('closed');
         }
         document.removeEventListener('click', this.clickOutside, false);

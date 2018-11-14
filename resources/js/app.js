@@ -50,6 +50,10 @@ window.onload = function () {
             },
             hide () {
                 this.$modal.hide('hello-world');
+            },
+            load () {
+                NProgress.start();
+                NProgress.set(0.7);
             }
         },
         components: {
