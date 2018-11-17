@@ -11,7 +11,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="player, key in players">
+        <i class="fas fa-spinner fa-spin fa-5x" id="loading" v-if="loading"></i>
+        <tr v-for="player, key in players" v-else>
             <td><a :href="'/player/' + player.id">{{player.name}}</a></td>
             <td><a :href="'/player/' + player.id">{{player.surname}}</a></td>
             <td>{{player.rank}}</td>
@@ -34,7 +35,8 @@
         data: function () {
             return {
                 players: [],
-                count: 0
+                count: 0,
+                loading: true
             }
         },
         mounted() {
@@ -44,6 +46,7 @@
             update:function() {
                 axios.get('/stat/getData').then((response) => {
                     this.players = response.data.players;
+                    this.loading = false;
                 })
             },
             delPlayer: function (id, key) {
@@ -56,5 +59,7 @@
 </script>
 
 <style scoped>
-
+    #loading {
+        margin-left: 250%;
+    }
 </style>
