@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success float-right">Create player</button>
+                <button type="submit" class="btn btn-primary float-right">Create player</button>
             </div>
         {!! Form::close() !!}
     </div>

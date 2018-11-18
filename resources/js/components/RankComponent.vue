@@ -1,6 +1,6 @@
 <template>
     <div class="float-right">
-        <button type="button" @click="show" class="btn btn-warning"><i class="fas fa-plus fa-lg"></i></button>
+        <button type="button" @click="show" class="btn btn-primary"><i class="fas fa-plus fa-lg"></i></button>
         <v-dialog/>
     </div>
 </template>

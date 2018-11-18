@@ -73,7 +73,7 @@
             deleteComment(index, list) {
                 this.$modal.show('dialog', {
                     title: 'Alert!',
-                    text: 'You really want to delete a comment?',
+                    text: 'Are you sure you want to delete the comment?',
                     buttons: [
                         {
                             title: 'Yes',       // Button title

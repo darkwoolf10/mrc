@@ -1,7 +1,12 @@
-@import url(https://fonts.googleapis.com/css?family=Mali);* {
-  font: 100% Mali, sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Montserrat|Mali);* {
+  font: 100% Mali, Montserrat, sans-serif;
   margin: 0;
   padding: 0;
+}
+
+body {
+  height: 100%;
+  width: 100%;
 }
 
 #header {
