@@ -26,11 +26,12 @@ import { Slide } from 'vue-burger-menu'
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.use(VModal);
+Vue.use(VModal, { dialog: true })
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('comment-component', require('./components/CommentComponent.vue'));
 Vue.component('stat-component', require('./components/StatComponent.vue'));
+Vue.component('rank-component', require('./components/RankComponent.vue'));
 
 window.onload = function () {
     const app = new Vue({
@@ -44,12 +45,6 @@ window.onload = function () {
         methods: {
             beforeOpen (event) {
                 console.log("run modal window");
-            },
-            show () {
-                this.$modal.show('hello-world');
-            },
-            hide () {
-                this.$modal.hide('hello-world');
             },
             load () {
                 NProgress.start();

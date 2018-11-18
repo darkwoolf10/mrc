@@ -21,16 +21,44 @@
 </head>
 <body>
     <div id="app">
-        {{--<modal name="hello-world">--}}
-            {{--hello, world!--}}
-        {{--</modal>--}}
-        <Slide id="menu">
-            <a @click="load" href="{{ url('/player') }}"><span><i class="fas fa-home">{{ config('app.name') }}</i></span></a>
-            <a @click="load" href="{{ url('/player/create') }}"><span><i class="fas fa-user-astronaut">Create_player</i></span></a>
-            <a @click="load" href="{{ route('stat') }}"><span><i class="fas fa-chart-bar">Stat</i></span></a>
-        </Slide>
+        <div id="header">
+            <Slide>
+                @guest
+                    <a @click="load" href="{{ route('login') }}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>_{{ __('Login') }}</span>
+                    </a>
+                    @if (Route::has('register'))
+                        <a @click="load" href="{{ route('register') }}">
+                            <i class="far fa-address-card"></i>
+                            <span>_{{ __('Register') }}</span>
+                        </a>
+                    @endif
+                @else
+                    <a @click="load" href="{{ url('/player') }}">
+                        <i class="fas fa-hotel"></i>
+                        <span>{{ config('app.name') }}</span>
+                    </a>
+                    <a @click="load" href="{{ url('/player/create') }}">
+                        <i class="fas fa-user-astronaut"></i>
+                        <span>Create_player</span>
+                    </a>
+                    <a @click="load" href="{{ route('stat') }}">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>{{ __('Logout') }}</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @endguest
+            </Slide>
+        </div>
 
-        <main class="py-4" style="margin-top: 3em; ">
+        <main class="py-4">
             @yield('content')
         </main>
     </div>

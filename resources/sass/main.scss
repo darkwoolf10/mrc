@@ -3,4 +3,16 @@ $font-stack:    Mali, sans-serif;
 
 * {
   font: 100% $font-stack;
+  margin: 0;
+  padding: 0;
+}
+#header {
+  width: 100%;
+  height: 100px;
+  background-color: whitesmoke;
+  border-bottom: 1px solid silver;
+}
+
+#header a {
+  color:whitesmoke;
 }

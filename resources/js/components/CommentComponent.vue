@@ -44,6 +44,7 @@
             </ul>
             <br>
         </div>
+        <v-dialog name="remove-comment"/>
     </div>
 </template>
 
@@ -70,9 +71,26 @@
         },
         methods: {
             deleteComment(index, list) {
-                const comment = list[index];
-                axios.post('/comment/delete/' + comment.id).then((response) => {
-                    list.splice(index, 1);
+                this.$modal.show('dialog', {
+                    title: 'Alert!',
+                    text: 'You really want to delete a comment?',
+                    buttons: [
+                        {
+                            title: 'Yes',       // Button title
+                            default: true,    // Will be triggered by default if 'Enter' pressed.
+                            handler: () => {
+                                const comment = list[index];
+                                axios.post('/comment/delete/' + comment.id).then((response) => {
+                                    list.splice(index, 1);
+
+                                });
+                                this.$modal.hide('dialog');
+                            } // Button click handler
+                        },
+                        {
+                            title: 'No',
+                        }
+                    ]
                 });
             },
             update:function() {
